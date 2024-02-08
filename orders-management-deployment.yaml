@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orders-management-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: orders-management-service
+  template:
+    metadata:
+      labels:
+        app: orders-management-service
+    spec:
+      containers:
+      - name: orders-management-service
+        image: elfraidi/orders-management-service-nutrisport:latest
+        ports:
+        - containerPort: 3200
+        env:
+        - name: IP_ADDRESS
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: PORT
+          value: "3200"
+        - name: KAFKA_BROKER
+          value: "kafka:9092"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orders-management-service
+spec:
+  selector:
+    app: orders-management-service
+  ports:
+    - protocol: TCP
+      port: 3200
+      targetPort: 3200
+  type: ClusterIP

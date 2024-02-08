@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: offers-and-requests-management-service
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: offers-and-requests-management-service
+  template:
+    metadata:
+      labels:
+        app: offers-and-requests-management-service
+    spec:
+      containers:
+      - name: offers-and-requests-management-service
+        image: elfraidi/offers-and-requests-management-service-nutrisport:latest
+        ports:
+        - containerPort: 3100
+        env:
+        - name: IP_ADDRESS
+          valueFrom:
+            fieldRef:
+              fieldPath: status.podIP
+        - name: PORT
+          value: "3100"
+        - name: KAFKA_BROKER
+          value: "kafka:9092"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: offers-and-requests-management-service
+spec:
+  selector:
+    app: offers-and-requests-management-service
+  ports:
+    - protocol: TCP
+      port: 3100
+      targetPort: 3100
+  type: ClusterIP
