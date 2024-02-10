@@ -18,12 +18,16 @@ spec:
         ports:
         - containerPort: 3400
         env:
-        - name: IP_ADDRESS
-          valueFrom:
-            fieldRef:
-              fieldPath: status.podIP
+        - name: eurekaIp
+          value: "discovery-service.default.svc.cluster.local"
         - name: PORT
           value: "3400"
+        - name: hostIp
+          value: "192.168.0.114"
+        - name: SPRING_DATASOURCE_PASSWORD
+          value: "nutriSport"
+        - name: KAFKA_BROKER
+          value: "192.168.0.114:9092"
 ---
 apiVersion: v1
 kind: Service

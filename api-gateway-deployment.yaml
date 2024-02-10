@@ -18,10 +18,8 @@ spec:
         ports:
         - containerPort: 8888
         env:
-        - name: IP_ADDRESS
-          valueFrom:
-            fieldRef:
-              fieldPath: status.podIP
+        - name: eurekaIp
+          value: "discovery-service.default.svc.cluster.local"
 ---
 apiVersion: v1
 kind: Service
