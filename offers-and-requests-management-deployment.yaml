@@ -25,11 +25,11 @@ spec:
         - name: PORT
           value: "3100"
         - name: hostIp
-          value: "192.168.0.114"
+          value: "192.168.0.156"
         - name: SPRING_DATASOURCE_PASSWORD
           value: "nutriSport"
         - name: KAFKA_BROKER
-          value: "192.168.0.114:9092"
+          value: "192.168.0.156:9092"
 ---
 apiVersion: v1
 kind: Service
