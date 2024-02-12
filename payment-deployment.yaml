@@ -40,4 +40,4 @@ spec:
     - protocol: TCP
       port: 3400
       targetPort: 3400
-  type: ClusterIP
+  type: LoadBalancer
